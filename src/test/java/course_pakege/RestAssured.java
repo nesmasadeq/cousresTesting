@@ -53,5 +53,51 @@ public class RestAssured {
 
 	}
 	
+	@Test 
+	public void getAllCoursesTC() {
+		System.out.println("token->"+TOKEN);
+		baseURI = "http://localhost:3000/660";
+		RequestSpecification request=given();
+		request.header("Content-type","application/json");
+		request.header("Authorization", "Bearer "+ TOKEN);
+		Response response= request.get("/courses");
+		System.out.println("body "+response.body().asPrettyString());
+		//BDD
+		response.then().statusCode(200).body("[2].id",equalTo(3)).log().all();
+	}
+	
+	@Test
+	public void postCourseTC() {
+		baseURI = "http://localhost:3000/660";
+		JSONObject requestParameter= new JSONObject();
+		requestParameter.put("id", 7);
+		requestParameter.put("name", "Test rest");
+		requestParameter.put("describtion", "Testing course");
+		requestParameter.put("author", "Nesma test");
+		RequestSpecification request=given();
+		request.header("Content-type","application/json");
+		request.header("Authorization", "Bearer "+ TOKEN);
+		request.body(requestParameter.toString());
+		Response response = request.post("/courses");
+		int statusCode=response.getStatusCode();
+		AssertJUnit.assertEquals(statusCode, 201);
+
+	}
+	
+	@Test
+	public void editCourseTC() {
+		baseURI = "http://localhost:3000/660";
+		JSONObject requestParameter= new JSONObject();
+		requestParameter.put("name", "Test rest2");
+		RequestSpecification request=given();
+		request.header("Content-type","application/json");
+		request.header("Authorization", "Bearer "+ TOKEN);
+		request.body(requestParameter.toString());
+		Response response = request.patch("/courses/7");
+		int statusCode=response.getStatusCode();
+		AssertJUnit.assertEquals(statusCode, 200);
+		
+	}
+	
 	
 }
