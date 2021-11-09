@@ -16,9 +16,11 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
 public class RestAssured {
-
+	
+	//public global string to save token
 	public String TOKEN;
 	 
+	
 	@Test
 	public void register() {
 		JSONObject requestParameter= new JSONObject();
@@ -53,7 +55,7 @@ public class RestAssured {
 
 	}
 	
-	@Test 
+	@Test (priority=1)
 	public void getAllCoursesTC() {
 		System.out.println("token->"+TOKEN);
 		baseURI = "http://localhost:3000/660";
@@ -66,7 +68,7 @@ public class RestAssured {
 		response.then().statusCode(200).body("[2].id",equalTo(3)).log().all();
 	}
 	
-	@Test
+	@Test (priority=2)
 	public void postCourseTC() {
 		baseURI = "http://localhost:3000/660";
 		JSONObject requestParameter= new JSONObject();
@@ -84,7 +86,7 @@ public class RestAssured {
 
 	}
 	
-	@Test
+	@Test (priority=3)
 	public void editCourseTC() {
 		baseURI = "http://localhost:3000/660";
 		JSONObject requestParameter= new JSONObject();
@@ -98,7 +100,7 @@ public class RestAssured {
 		AssertJUnit.assertEquals(statusCode, 200);	
 	}
 	
-	@Test
+	@Test (priority=4)
 	public void getCourseTC() {
 		baseURI = "http://localhost:3000/660";
 		RequestSpecification request=given();
@@ -111,7 +113,7 @@ public class RestAssured {
 		AssertJUnit.assertEquals(name, "Test rest2");
 	}
 	
-	@Test
+	@Test (priority=5)
 	public void deleteCourseTC() {
 		baseURI = "http://localhost:3000/660";
 		RequestSpecification request=given();
