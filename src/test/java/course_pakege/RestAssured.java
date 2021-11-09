@@ -95,9 +95,31 @@ public class RestAssured {
 		request.body(requestParameter.toString());
 		Response response = request.patch("/courses/7");
 		int statusCode=response.getStatusCode();
-		AssertJUnit.assertEquals(statusCode, 200);
-		
+		AssertJUnit.assertEquals(statusCode, 200);	
 	}
 	
+	@Test
+	public void getCourseTC() {
+		baseURI = "http://localhost:3000/660";
+		RequestSpecification request=given();
+		request.header("Content-type","application/json");
+		request.header("Authorization", "Bearer "+ TOKEN);
+		Response response = request.get("/courses/7");
+		int statusCode=response.getStatusCode();
+		AssertJUnit.assertEquals(statusCode, 200);
+		String name= response.jsonPath().get("name");
+		AssertJUnit.assertEquals(name, "Test rest2");
+	}
+	
+	@Test
+	public void deleteCourseTC() {
+		baseURI = "http://localhost:3000/660";
+		RequestSpecification request=given();
+		request.header("Content-type","application/json");
+		request.header("Authorization", "Bearer "+ TOKEN);
+		Response response = request.delete("/courses/7");
+		int statusCode=response.getStatusCode();
+		AssertJUnit.assertEquals(statusCode, 200);
+	}
 	
 }
