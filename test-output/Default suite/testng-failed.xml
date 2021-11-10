@@ -5,7 +5,7 @@
     <classes>
       <class name="course_pakege.RestAssured">
         <methods>
-          <include name="getAllCoursesTC"/>
+          <include name="register"/>
           <include name="login"/>
         </methods>
       </class> <!-- course_pakege.RestAssured -->

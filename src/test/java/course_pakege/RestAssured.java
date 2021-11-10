@@ -21,7 +21,7 @@ public class RestAssured {
 	public String TOKEN;
 	 
 	
-	@Test
+	@BeforeSuite
 	public void register() {
 		JSONObject requestParameter= new JSONObject();
 		requestParameter.put("email", "olivier@mail.com");
